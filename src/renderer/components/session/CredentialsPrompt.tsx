@@ -1,7 +1,7 @@
 import './CredentialsPrompt.css'
 
 interface Props {
-  platform: 'twitch' | 'youtube' | 'discord' | 'destinygg'
+  platform: 'twitch' | 'youtube' | 'discord' | 'destinygg' | 'kick'
 }
 
 export function CredentialsPrompt({ platform }: Props) {
@@ -11,6 +11,18 @@ export function CredentialsPrompt({ platform }: Props) {
         <span className="credentials-prompt__icon">ℹ</span>
         <span>
           Twitch chat works without credentials via anonymous IRC.
+          Just enter a channel name below.
+        </span>
+      </div>
+    )
+  }
+
+  if (platform === 'kick') {
+    return (
+      <div className="credentials-prompt">
+        <span className="credentials-prompt__icon">ℹ</span>
+        <span>
+          Kick chat works anonymously without credentials.
           Just enter a channel name below.
         </span>
       </div>

@@ -5,10 +5,7 @@ export interface MessageGroup {
   events: ChatEvent[]
 }
 
-const GROUP_GAP_MS = 20_000   // break group if >20s between messages
-const MAX_GROUP_SIZE = 6       // max messages per visual group
-
-export function groupGeneralMessages(messages: ChatEvent[]): MessageGroup[] {
+export function groupGeneralMessages(messages: ChatEvent[], groupGapMs: number, maxGroupSize: number): MessageGroup[] {
   const groups: MessageGroup[] = []
 
   for (const event of messages) {
@@ -20,8 +17,8 @@ export function groupGeneralMessages(messages: ChatEvent[]): MessageGroup[] {
       lastEvent !== undefined &&
       last.events[0].user.platformUserId === event.user.platformUserId &&
       last.events[0].platform === event.platform &&
-      event.timestamp - lastEvent.timestamp < GROUP_GAP_MS &&
-      last.events.length < MAX_GROUP_SIZE
+      event.timestamp - lastEvent.timestamp < groupGapMs &&
+      last.events.length < maxGroupSize
 
     if (canExtend) {
       last.events.push(event)

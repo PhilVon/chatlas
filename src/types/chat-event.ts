@@ -1,4 +1,4 @@
-export type Platform = 'twitch' | 'youtube' | 'discord' | 'destinygg'
+export type Platform = 'twitch' | 'youtube' | 'discord' | 'destinygg' | 'kick'
 
 export type EventType =
   | 'message'

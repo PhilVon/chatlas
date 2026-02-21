@@ -1,6 +1,6 @@
 {
   "name": "chatlas",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Multi-platform streamer chat viewer — organized lanes, burst control, pinning, and hotkeys",
   "main": "dist/main/index.js",
   "scripts": {

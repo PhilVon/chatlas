@@ -20,8 +20,6 @@ import { useChatStore } from '../../store/chat-store'
 import { useSettingsStore } from '../../store/settings-store'
 import './LaneColumn.css'
 
-const MAX_VISIBLE_QUESTIONS = 8
-
 // Stable empty arrays so hook deps stay referentially equal across renders
 const EMPTY_EVENTS: ChatEvent[] = []
 const EMPTY_QUESTION_ITEMS: QuestionItem[] = []
@@ -61,9 +59,15 @@ export function LaneColumn({
   const burst = useChatStore(s => s.lanes[lane].burst)
   const answeredIds = useChatStore(s => s.answeredIds)
   const clearLane = useChatStore(s => s.clearLane)
-  const topicClustering = useSettingsStore(s => s.settings.lanes.topicClustering)
-  const showAvatars = useSettingsStore(s => s.settings.display.showAvatars)
-  const showEmotes = useSettingsStore(s => s.settings.display.showEmotes)
+  const topicClustering     = useSettingsStore(s => s.settings.lanes.topicClustering)
+  const showAvatars         = useSettingsStore(s => s.settings.display.showAvatars)
+  const showEmotes          = useSettingsStore(s => s.settings.display.showEmotes)
+  const groupGapMs          = useSettingsStore(s => s.settings.lanes.groupGapMs)
+  const maxGroupSize        = useSettingsStore(s => s.settings.lanes.maxGroupSize)
+  const clusterDecayMs      = useSettingsStore(s => s.settings.lanes.clusterDecayMs)
+  const clusterSimilarity   = useSettingsStore(s => s.settings.lanes.clusterSimilarity)
+  const maxVisibleQuestions = useSettingsStore(s => s.settings.lanes.maxVisibleQuestions)
+  const questionSimilarity  = useSettingsStore(s => s.settings.lanes.questionSimilarity)
 
   const [expandedClusterIds, setExpandedClusterIds] = useState(new Set<string>())
   const [showNoise, setShowNoise] = useState(false)
@@ -97,7 +101,7 @@ export function LaneColumn({
   const rawQuestionItems = useMemo((): QuestionItem[] => {
     if (!isQuestionsLane) return EMPTY_QUESTION_ITEMS
     const unanswered = messages.filter(m => !answeredIds.has(m.id))
-    const groups = groupQuestions(unanswered, embeddings)
+    const groups = groupQuestions(unanswered, questionSimilarity, embeddings)
     const items: QuestionItem[] = []
     for (const group of groups) {
       if (group.askers.length > 1) {
@@ -110,12 +114,12 @@ export function LaneColumn({
       }
     }
     return items
-  }, [isQuestionsLane, messages, answeredIds, embeddings])
+  }, [isQuestionsLane, messages, answeredIds, questionSimilarity, embeddings])
 
   // Cluster lane data
   const rawClusterItems = useMemo((): ClusterItem[] => {
     if (!isGeneralLane || !topicClustering) return EMPTY_CLUSTER_ITEMS
-    const clusters = clusterMessages(messages, expandedClusterIds, embeddings)
+    const clusters = clusterMessages(messages, expandedClusterIds, clusterDecayMs, clusterSimilarity, embeddings)
     const now = Date.now()
     const noisyRatios = new Map(clusters.map(c => {
       const noisyCount = c.messages.filter(e => isNoisyMessage(e)).length
@@ -158,18 +162,18 @@ export function LaneColumn({
       }))
     ]
     return items
-  }, [isGeneralLane, topicClustering, messages, expandedClusterIds, embeddings])
+  }, [isGeneralLane, topicClustering, messages, expandedClusterIds, clusterDecayMs, clusterSimilarity, embeddings])
 
   // Message group data (general fallback)
   const rawGroups = useMemo((): MessageGroup[] => {
     if (!isGeneralLane || topicClustering) return EMPTY_GROUPS
-    return groupGeneralMessages(messages)
-  }, [isGeneralLane, topicClustering, messages])
+    return groupGeneralMessages(messages, groupGapMs, maxGroupSize)
+  }, [isGeneralLane, topicClustering, messages, groupGapMs, maxGroupSize])
 
   // ── Animation hooks — called unconditionally ──────────────────────────────
   const visibleQuestionItems = useMemo(
-    () => isQuestionsLane ? rawQuestionItems.slice(0, MAX_VISIBLE_QUESTIONS) : EMPTY_QUESTION_ITEMS,
-    [isQuestionsLane, rawQuestionItems]
+    () => isQuestionsLane ? rawQuestionItems.slice(0, maxVisibleQuestions) : EMPTY_QUESTION_ITEMS,
+    [isQuestionsLane, rawQuestionItems, maxVisibleQuestions]
   )
 
   const animatedAlerts    = useAnimatedList(isAlertsLane ? messages : EMPTY_EVENTS, e => e.id)
@@ -179,7 +183,7 @@ export function LaneColumn({
 
   // ── Questions lane: fixed non-scrollable queue ────────────────────────────
   if (lane === 'questions') {
-    const overflow = rawQuestionItems.length - Math.min(rawQuestionItems.length, MAX_VISIBLE_QUESTIONS)
+    const overflow = rawQuestionItems.length - Math.min(rawQuestionItems.length, maxVisibleQuestions)
 
     return (
       <div className={`lane-column${isFocusedLane ? ' lane-column--focused' : ''}`}>

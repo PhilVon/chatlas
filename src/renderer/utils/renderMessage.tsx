@@ -130,7 +130,7 @@ export function renderMessage(
     return nodes.length > 0 ? nodes : text
   }
 
-  if (platform === 'destinygg' && showEmotes && emotes && Object.keys(emotes).length > 0) {
+  if ((platform === 'destinygg' || platform === 'kick') && showEmotes && emotes && Object.keys(emotes).length > 0) {
     const parts = text.split(/(\s+)/)
     const nodes: ReactNode[] = []
     for (let i = 0; i < parts.length; i++) {

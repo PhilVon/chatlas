@@ -26,7 +26,6 @@ const STOPWORDS = new Set([
 ])
 
 const COSINE_THRESHOLD = 0.55
-const JACCARD_THRESHOLD = 0.30
 const MAX_GROUPS = 50
 
 function cosineSimilarity(a: Float32Array, b: Float32Array): number {
@@ -68,6 +67,7 @@ function jaccardSimilarity(a: Set<string>, b: Set<string>): number {
 
 export function groupQuestions(
   events: ChatEvent[],
+  questionSimilarity: number,
   embeddings: Map<string, Float32Array> = new Map()
 ): QuestionGroup[] {
   const groups: QuestionGroup[] = []
@@ -101,7 +101,7 @@ export function groupQuestions(
       } else {
         const repToks = repTokens.get(group.groupId)!
         score = jaccardSimilarity(tokens, repToks)
-        threshold = JACCARD_THRESHOLD
+        threshold = questionSimilarity
       }
 
       if (score >= threshold && score > bestScore) {

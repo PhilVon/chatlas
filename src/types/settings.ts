@@ -17,6 +17,12 @@ export interface LaneSettings {
   burstThreshold: number
   topicClustering: boolean
   alertAutoClearMs: number
+  groupGapMs: number
+  maxGroupSize: number
+  clusterDecayMs: number
+  clusterSimilarity: number
+  maxVisibleQuestions: number
+  questionSimilarity: number
 }
 
 export interface DisplaySettings {
@@ -31,6 +37,7 @@ export interface DisplaySettings {
 export interface OverlaySettings {
   lane: 'questions' | 'alerts'
   opacity: number
+  maxOverlayItems: number
   bounds?: { x: number; y: number; width: number; height: number }
 }
 
@@ -72,7 +79,13 @@ export const DEFAULT_SETTINGS: AppSettings = {
     generalEnabled: true,
     burstThreshold: 30,
     topicClustering: true,
-    alertAutoClearMs: 60000
+    alertAutoClearMs: 60000,
+    groupGapMs: 20000,
+    maxGroupSize: 6,
+    clusterDecayMs: 30000,
+    clusterSimilarity: 0.25,
+    maxVisibleQuestions: 8,
+    questionSimilarity: 0.30
   },
   display: {
     showPlatformBadge: true,
@@ -87,5 +100,5 @@ export const DEFAULT_SETTINGS: AppSettings = {
     botUsernames: ['nightbot', 'streamelements', 'moobot', 'fossabot', 'wizebot', 'streamlabs', 'botisimo'],
     alertKeywords: []
   },
-  overlay: { lane: 'questions', opacity: 1.0 }
+  overlay: { lane: 'questions', opacity: 1.0, maxOverlayItems: 5 }
 }

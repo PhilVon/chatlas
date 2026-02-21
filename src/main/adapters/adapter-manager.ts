@@ -5,6 +5,7 @@ import { TwitchAdapter } from './twitch-adapter'
 import { YouTubeAdapter } from './youtube-adapter'
 import { DiscordAdapter } from './discord-adapter'
 import { DestinyggAdapter } from './destinygg-adapter'
+import { KickAdapter } from './kick-adapter'
 import { errorMessage } from '../utils/errors'
 
 export class AdapterManager {
@@ -39,7 +40,7 @@ export class AdapterManager {
       adapter.onStatusChange((status: SourceStatusType, error?: string) => {
         this.statusHandler?.({ sourceId, platform: config.type, status, error })
 
-        if (status === 'error' && (config.type === 'twitch' || config.type === 'discord' || config.type === 'destinygg')) {
+        if (status === 'error' && (config.type === 'twitch' || config.type === 'discord' || config.type === 'destinygg' || config.type === 'kick')) {
           this.scheduleReconnect(sourceId)
         }
       })
@@ -85,6 +86,7 @@ export class AdapterManager {
     if (config.type === 'youtube') return new YouTubeAdapter(config)
     if (config.type === 'discord') return new DiscordAdapter(config)
     if (config.type === 'destinygg') return new DestinyggAdapter(config)
+    if (config.type === 'kick') return new KickAdapter(config)
     throw new Error(`Unknown platform: ${config.type}`)
   }
 

@@ -15,11 +15,13 @@ const STATUS_LABELS: Record<string, string> = {
 }
 
 export function SourceCard({ source, onRemove }: Props) {
-  const label = source.config.channel
-    ? `twitch: ${source.config.channel}`
-    : source.config.videoId
-      ? `youtube: ${source.config.videoId}`
-      : source.sourceId
+  const label = (() => {
+    const t = source.config.type
+    if ((t === 'twitch' || t === 'kick') && source.config.channel) return `${t}: ${source.config.channel}`
+    if (t === 'youtube' && source.config.videoId) return `youtube: ${source.config.videoId}`
+    if (t === 'discord' && source.config.discordChannelId) return `discord: ${source.config.discordChannelId}`
+    return source.sourceId
+  })()
 
   return (
     <div className={`source-card source-card--${source.status}`}>

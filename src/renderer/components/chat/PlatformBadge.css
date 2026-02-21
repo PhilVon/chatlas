@@ -34,3 +34,9 @@
   color: #00a562;
   border: 1px solid rgba(0, 165, 98, 0.35);
 }
+
+.platform-badge--kick {
+  background: rgba(83, 252, 24, 0.15);
+  color: #53fc18;
+  border: 1px solid rgba(83, 252, 24, 0.35);
+}

@@ -74,6 +74,50 @@ export function LaneSettings({ settings, onChange }: Props) {
         </div>
       </div>
 
+      {lanes.generalEnabled && (
+        <div className="settings-field">
+          <label className="settings-label">Message Grouping</label>
+          <label className="settings-label">Group timeout — {formatDuration(lanes.groupGapMs)}</label>
+          <input
+            className="lane-settings__slider"
+            type="range"
+            min={5000} max={60000} step={5000}
+            value={lanes.groupGapMs}
+            onChange={e => updateLanes({ groupGapMs: Number(e.target.value) })}
+          />
+          <label className="settings-label">Max per group — {lanes.maxGroupSize}</label>
+          <input
+            className="lane-settings__slider"
+            type="range"
+            min={2} max={20} step={1}
+            value={lanes.maxGroupSize}
+            onChange={e => updateLanes({ maxGroupSize: Number(e.target.value) })}
+          />
+        </div>
+      )}
+
+      {lanes.topicClustering && (
+        <div className="settings-field">
+          <label className="settings-label">Topic Clustering</label>
+          <label className="settings-label">Cluster window — {formatDuration(lanes.clusterDecayMs)}</label>
+          <input
+            className="lane-settings__slider"
+            type="range"
+            min={10000} max={120000} step={5000}
+            value={lanes.clusterDecayMs}
+            onChange={e => updateLanes({ clusterDecayMs: Number(e.target.value) })}
+          />
+          <label className="settings-label">Similarity threshold — {Math.round(lanes.clusterSimilarity * 100)}%</label>
+          <input
+            className="lane-settings__slider"
+            type="range"
+            min={0.10} max={0.60} step={0.05}
+            value={lanes.clusterSimilarity}
+            onChange={e => updateLanes({ clusterSimilarity: Number(e.target.value) })}
+          />
+        </div>
+      )}
+
       <div className="settings-field">
         <label className="settings-label">
           Burst Threshold (msgs / 60s) — {lanes.burstThreshold}
@@ -103,6 +147,28 @@ export function LaneSettings({ settings, onChange }: Props) {
         />
       </div>
 
+      {lanes.questionsEnabled && (
+        <div className="settings-field">
+          <label className="settings-label">Questions</label>
+          <label className="settings-label">Max visible questions — {lanes.maxVisibleQuestions}</label>
+          <input
+            className="lane-settings__slider"
+            type="range"
+            min={3} max={20} step={1}
+            value={lanes.maxVisibleQuestions}
+            onChange={e => updateLanes({ maxVisibleQuestions: Number(e.target.value) })}
+          />
+          <label className="settings-label">Dedup sensitivity — {Math.round(lanes.questionSimilarity * 100)}%</label>
+          <input
+            className="lane-settings__slider"
+            type="range"
+            min={0.10} max={0.70} step={0.05}
+            value={lanes.questionSimilarity}
+            onChange={e => updateLanes({ questionSimilarity: Number(e.target.value) })}
+          />
+        </div>
+      )}
+
       <div className="settings-field">
         <label className="settings-label">
           General Dock Duration — {dock.dockDurationMs / 1000}s
@@ -129,6 +195,17 @@ export function LaneSettings({ settings, onChange }: Props) {
             >{lane}</button>
           ))}
         </div>
+      </div>
+
+      <div className="settings-field">
+        <label className="settings-label">Max overlay items — {overlay.maxOverlayItems}</label>
+        <input
+          className="lane-settings__slider"
+          type="range"
+          min={1} max={15} step={1}
+          value={overlay.maxOverlayItems}
+          onChange={e => updateOverlay({ maxOverlayItems: Number(e.target.value) })}
+        />
       </div>
     </div>
   )

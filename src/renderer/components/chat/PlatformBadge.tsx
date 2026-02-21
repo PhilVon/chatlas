@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function PlatformBadge({ platform }: Props) {
-  const LABELS: Record<string, string> = { twitch: 'TW', youtube: 'YT', discord: 'DC', destinygg: 'DGG' }
+  const LABELS: Record<string, string> = { twitch: 'TW', youtube: 'YT', discord: 'DC', destinygg: 'DGG', kick: 'KI' }
   const label = LABELS[platform] ?? platform.slice(0, 2).toUpperCase()
 
   return (

@@ -6,12 +6,11 @@ import { QuestionCard } from '../chat/QuestionCard'
 import { AlertCard } from '../chat/AlertCard'
 import './OverlayApp.css'
 
-const MAX_OVERLAY_QUESTIONS = 5
-
 export function OverlayApp() {
   useIPC()
-  const loadSettings = useSettingsStore(s => s.load)
-  const overlayLane  = useSettingsStore(s => s.settings.overlay?.lane ?? 'questions')
+  const loadSettings    = useSettingsStore(s => s.load)
+  const overlayLane     = useSettingsStore(s => s.settings.overlay?.lane ?? 'questions')
+  const maxOverlayItems = useSettingsStore(s => s.settings.overlay?.maxOverlayItems ?? 5)
   useEffect(() => { void loadSettings() }, [loadSettings])
 
   const questionMessages = useChatStore(s => s.lanes.questions.messages)
@@ -19,8 +18,8 @@ export function OverlayApp() {
   const answeredIds      = useChatStore(s => s.answeredIds)
 
   const visible = overlayLane === 'questions'
-    ? questionMessages.filter(m => !answeredIds.has(m.id)).slice(0, MAX_OVERLAY_QUESTIONS)
-    : alertMessages.slice(0, MAX_OVERLAY_QUESTIONS)
+    ? questionMessages.filter(m => !answeredIds.has(m.id)).slice(0, maxOverlayItems)
+    : alertMessages.slice(0, maxOverlayItems)
 
   return (
     <div className="overlay-app">

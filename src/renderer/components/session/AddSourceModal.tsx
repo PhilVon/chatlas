@@ -41,11 +41,18 @@ export function AddSourceModal({ onClose }: Props) {
       return
     }
 
+    if (platform === 'kick' && !channel.trim()) {
+      setError('Channel name is required')
+      setLoading(false)
+      return
+    }
+
     const config: SourceConfig = {
       type: platform,
       ...(platform === 'twitch' ? { channel: channel.replace('#', '').trim() } : {}),
       ...(platform === 'youtube' ? { videoId: videoId.trim() } : {}),
-      ...(platform === 'discord' ? { discordChannelId: channelId.trim() } : {})
+      ...(platform === 'discord' ? { discordChannelId: channelId.trim() } : {}),
+      ...(platform === 'kick' ? { channel: channel.trim() } : {})
     }
 
     const result = await window.electronAPI.sourceAdd(config)
@@ -97,6 +104,12 @@ export function AddSourceModal({ onClose }: Props) {
               >
                 Destiny.gg
               </button>
+              <button
+                className={`add-source-modal__tab${platform === 'kick' ? ' add-source-modal__tab--active' : ''}`}
+                onClick={() => setPlatform('kick')}
+              >
+                Kick
+              </button>
             </div>
           </div>
 
@@ -140,6 +153,21 @@ export function AddSourceModal({ onClose }: Props) {
                 placeholder="e.g. 1234567890123456789"
                 value={channelId}
                 onChange={e => setChannelId(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && void handleAdd()}
+                autoFocus
+              />
+            </div>
+          )}
+
+          {platform === 'kick' && (
+            <div className="add-source-modal__field">
+              <label>Channel Name</label>
+              <input
+                className="add-source-modal__input"
+                type="text"
+                placeholder="e.g. xqc"
+                value={channel}
+                onChange={e => setChannel(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && void handleAdd()}
                 autoFocus
               />

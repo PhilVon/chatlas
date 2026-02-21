@@ -21,8 +21,6 @@ const STOPWORDS = new Set([
   'chat', 'guys', 'bro', 'dude',
 ])
 
-const CLUSTER_DECAY_MS = 30_000
-const SIMILARITY_THRESHOLD = 0.25
 const COSINE_THRESHOLD = 0.35
 const MIN_TOKENS_FOR_CLUSTER = 2
 
@@ -85,6 +83,8 @@ function buildUserSubGroups(messages: ChatEvent[]): UserSubGroup[] {
 export function clusterMessages(
   messages: ChatEvent[],
   expandedClusterIds: Set<string>,
+  clusterDecayMs: number,
+  clusterSimilarity: number,
   embeddings: Map<string, Float32Array> = new Map()
 ): TopicCluster[] {
   const clusters: TopicCluster[] = []
@@ -161,7 +161,7 @@ export function clusterMessages(
         let merged = false
         if (recentShortClusterId !== null) {
           const shortCluster = clusters.find(c => c.clusterId === recentShortClusterId)
-          if (shortCluster && event.timestamp - shortCluster.lastTimestamp <= CLUSTER_DECAY_MS) {
+          if (shortCluster && event.timestamp - shortCluster.lastTimestamp <= clusterDecayMs) {
             mergeIntoCluster(shortCluster, event, tokens)
             eventClusterMap.set(event.id, recentShortClusterId)
             merged = true
@@ -209,7 +209,7 @@ export function clusterMessages(
     for (const cluster of clusters) {
       if (cluster.messages.length === 0) continue
       const age = event.timestamp - cluster.lastTimestamp
-      if (age > CLUSTER_DECAY_MS) continue
+      if (age > clusterDecayMs) continue
 
       const centroid = centroids.get(cluster.clusterId)
       let score: number
@@ -220,7 +220,7 @@ export function clusterMessages(
       } else {
         const compSet = getComparisonSet(cluster.clusterId)
         score = jaccardSimilarity(tokens, compSet)
-        threshold = SIMILARITY_THRESHOLD
+        threshold = clusterSimilarity
       }
 
       if (score >= threshold) {
