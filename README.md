@@ -10,7 +10,7 @@ A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, D
 - **Question deduplication**: Collapses repeated questions from different users
 - **Overlay window**: Frameless transparent window for OBS/stream layout
 - **Avatars & emotes**: Renders Discord/YouTube avatars and Twitch emotes inline
-- **Pinning & hotkeys**: Pin important messages; global hotkeys configurable per action
+- **Hotkeys**: Global hotkeys configurable per action
 - **Persistent settings**: Credentials, layout, and preferences saved between sessions
 
 ## Getting Started
