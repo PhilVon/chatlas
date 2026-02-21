@@ -1,6 +1,6 @@
 # ChAtlas
 
-A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, Discord, YouTube, and Destiny.gg into structured lanes with burst control, message pinning, and configurable hotkeys.
+A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, Discord, YouTube, and Destiny.gg into structured lanes with burst control, and configurable hotkeys.
 
 ## Features
 
