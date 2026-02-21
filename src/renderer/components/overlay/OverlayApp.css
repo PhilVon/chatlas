@@ -1,0 +1,20 @@
+.overlay-app {
+  background: transparent;
+  padding: 8px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.overlay-grip {
+  height: 14px;
+  background: rgba(0, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.12);
+  border-radius: 6px 6px 0 0;
+  cursor: move;
+  -webkit-app-region: drag;
+  margin: -8px -8px 8px -8px;
+}
+
+.overlay-card-wrapper {
+  -webkit-app-region: no-drag;
+}

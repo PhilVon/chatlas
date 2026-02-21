@@ -1,0 +1,33 @@
+.lane-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lane-settings__toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lane-settings__toggles .settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.lane-settings__toggles input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--neon-cyan, #00ffff);
+  cursor: pointer;
+}
+
+.lane-settings__slider {
+  width: 100%;
+  accent-color: var(--neon-cyan, #00ffff);
+  cursor: pointer;
+}

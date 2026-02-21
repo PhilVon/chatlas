@@ -1,0 +1,36 @@
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.platform-badge--twitch {
+  background: rgba(145, 70, 255, 0.25);
+  color: #9146ff;
+  border: 1px solid rgba(145, 70, 255, 0.4);
+}
+
+.platform-badge--youtube {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff4444;
+  border: 1px solid rgba(255, 0, 0, 0.35);
+}
+
+.platform-badge--discord {
+  background: rgba(88, 101, 242, 0.2);
+  color: #5865f2;
+  border: 1px solid rgba(88, 101, 242, 0.35);
+}
+
+.platform-badge--destinygg {
+  background: rgba(0, 165, 98, 0.2);
+  color: #00a562;
+  border: 1px solid rgba(0, 165, 98, 0.35);
+}

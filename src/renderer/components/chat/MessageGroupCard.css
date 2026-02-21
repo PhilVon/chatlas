@@ -1,0 +1,81 @@
+.msg-group {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  margin-bottom: 3px;
+}
+
+.msg-group:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(0, 255, 255, 0.15);
+}
+
+.msg-group--focused {
+  border-color: rgba(0, 255, 255, 0.45);
+  background: rgba(0, 255, 255, 0.04);
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.08);
+}
+
+.msg-group--answered {
+  opacity: 0.4;
+}
+
+.msg-group__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+
+.msg-group__time {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.28);
+  margin-left: auto;
+}
+
+.msg-group__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.msg-group__line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 1px 0;
+  border-radius: 3px;
+  transition: background 0.1s;
+}
+
+.msg-group__line:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.msg-group__line--focused {
+  background: rgba(0, 255, 255, 0.06);
+}
+
+.msg-group__line--pinned .msg-group__line-text {
+  color: var(--neon-cyan, #00ffff);
+  opacity: 0.9;
+}
+
+.msg-group__line-time {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+  min-width: 36px;
+  text-align: right;
+}
+
+.msg-group__line-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.4;
+  word-break: break-word;
+}

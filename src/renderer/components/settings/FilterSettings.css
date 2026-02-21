@@ -1,0 +1,92 @@
+.filter-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filter-description {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.filter-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 28px;
+}
+
+.filter-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(0, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.filter-tag__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.filter-tag__remove:hover {
+  color: rgba(255, 80, 80, 0.9);
+}
+
+.filter-add-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.filter-input {
+  flex: 1;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.filter-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-input:focus {
+  border-color: rgba(0, 255, 255, 0.35);
+}
+
+.filter-add-btn {
+  padding: 6px 14px;
+  background: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 4px;
+  color: var(--neon-cyan, #00ffff);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.filter-add-btn:hover {
+  background: rgba(0, 255, 255, 0.14);
+}

@@ -1,0 +1,166 @@
+.add-source-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.add-source-modal {
+  background: #0f0f1a;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.add-source-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.add-source-modal__header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.04em;
+}
+
+.add-source-modal__close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: color 0.15s;
+}
+
+.add-source-modal__close:hover {
+  color: rgba(255, 80, 80, 0.8);
+}
+
+.add-source-modal__body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-source-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.add-source-modal__field label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.add-source-modal__tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.add-source-modal__tab {
+  flex: 1;
+  padding: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s;
+}
+
+.add-source-modal__tab--active {
+  background: rgba(0, 255, 255, 0.08);
+  border-color: rgba(0, 255, 255, 0.4);
+  color: var(--neon-cyan, #00ffff);
+}
+
+.add-source-modal__input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  padding: 8px 10px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.add-source-modal__input:focus {
+  border-color: rgba(0, 255, 255, 0.4);
+}
+
+.add-source-modal__input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.add-source-modal__error {
+  font-size: 12px;
+  color: rgba(255, 80, 80, 0.85);
+  padding: 6px 10px;
+  background: rgba(255, 80, 80, 0.08);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 80, 80, 0.2);
+}
+
+.add-source-modal__footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.add-source-modal__btn {
+  padding: 7px 16px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.add-source-modal__btn--cancel {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.add-source-modal__btn--cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.add-source-modal__btn--add {
+  background: rgba(0, 255, 255, 0.12);
+  border-color: rgba(0, 255, 255, 0.4);
+  color: var(--neon-cyan, #00ffff);
+  font-weight: 600;
+}
+
+.add-source-modal__btn--add:hover:not(:disabled) {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+.add-source-modal__btn--add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
