@@ -2,7 +2,7 @@
 
 A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, Discord, YouTube, Kick, and Destiny.gg into structured lanes with burst control, message pinning, and configurable hotkeys.
 
-<img width="1200" height="800" alt="screenshot-ChAtlas" src="https://github.com/user-attachments/assets/331224de-7cf6-490f-b384-0bb2d6ac1d1c" />
+<img width="1200" height="800" alt="screenshot-ChAtlas" src="https://github.com/user-attachments/assets/0cbfdcbd-b470-41d8-97af-70b6158bad4d" />
 
 ## Features
 
