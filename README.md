@@ -1,6 +1,6 @@
 # ChAtlas
 
-A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, Discord, YouTube, Kick, and Destiny.gg into structured lanes with burst control, message pinning, and configurable hotkeys.
+A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, Discord, YouTube, Kick, and Destiny.gg into structured lanes with burst control, and configurable hotkeys.
 
 <img width="1200" height="800" alt="screenshot-ChAtlas" src="https://github.com/user-attachments/assets/0cbfdcbd-b470-41d8-97af-70b6158bad4d" />
 
@@ -12,7 +12,7 @@ A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, D
 - **Question deduplication**: Collapses repeated questions from different users; sensitivity is configurable
 - **Overlay window**: Frameless transparent window for OBS/stream layout with configurable item limit
 - **Avatars & emotes**: Renders Discord/YouTube avatars and Twitch/Kick emotes inline
-- **Pinning & hotkeys**: Pin important messages; global hotkeys configurable per action
+- **Hotkeys**: Global hotkeys configurable per action
 - **Persistent settings**: Credentials, layout, and preferences saved between sessions
 
 ## Getting Started
@@ -20,9 +20,8 @@ A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, D
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) 18+
-- A Twitch account (for Twitch chat) — no OAuth required for read-only
 - A Discord bot token (for Discord channels) with `MESSAGE_CONTENT` intent enabled
-- YouTube and Kick work anonymously — no credentials required
+- YouTube, Twitch, and Kick work anonymously — no credentials required
 
 ### Install & Run
 
