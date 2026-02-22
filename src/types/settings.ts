@@ -42,7 +42,6 @@ export interface OverlaySettings {
 }
 
 export interface CredentialSettings {
-  youtubeApiKey?: string
   discordBotToken?: string
   dggAuthToken?: string
 }

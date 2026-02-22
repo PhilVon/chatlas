@@ -55,11 +55,11 @@ export function CredentialsPrompt({ platform }: Props) {
   }
 
   return (
-    <div className="credentials-prompt credentials-prompt--warn">
-      <span className="credentials-prompt__icon">⚠</span>
+    <div className="credentials-prompt">
+      <span className="credentials-prompt__icon">ℹ</span>
       <span>
-        YouTube requires a Data API v3 key and a live <strong>Video ID</strong>.
-        Add your API key in <strong>Settings → Credentials</strong> first.
+        YouTube chat works without credentials via the internal InnerTube API.
+        Just enter a live stream <strong>Video ID</strong> below.
       </span>
     </div>
   )

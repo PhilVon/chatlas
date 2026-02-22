@@ -40,7 +40,7 @@ export class AdapterManager {
       adapter.onStatusChange((status: SourceStatusType, error?: string) => {
         this.statusHandler?.({ sourceId, platform: config.type, status, error })
 
-        if (status === 'error' && (config.type === 'twitch' || config.type === 'discord' || config.type === 'destinygg' || config.type === 'kick')) {
+        if (status === 'error' && (config.type === 'twitch' || config.type === 'youtube' || config.type === 'discord' || config.type === 'destinygg' || config.type === 'kick')) {
           this.scheduleReconnect(sourceId)
         }
       })

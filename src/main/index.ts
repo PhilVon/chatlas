@@ -134,7 +134,6 @@ async function autoRestoreSources() {
     for (const config of sources) {
       const withCreds: SourceConfig = {
         ...config,
-        apiKey:       settings.credentials.youtubeApiKey   ?? config.apiKey,
         botToken:     settings.credentials.discordBotToken ?? config.botToken,
         dggAuthToken: settings.credentials.dggAuthToken    ?? config.dggAuthToken
       }

@@ -139,6 +139,7 @@ export function AddSourceModal({ onClose }: Props) {
                 placeholder="e.g. dQw4w9WgXcQ"
                 value={videoId}
                 onChange={e => setVideoId(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && void handleAdd()}
                 autoFocus
               />
             </div>

@@ -22,8 +22,7 @@ A multi-platform streamer chat viewer for Windows. Organizes chat from Twitch, D
 - [Node.js](https://nodejs.org/) 18+
 - A Twitch account (for Twitch chat) — no OAuth required for read-only
 - A Discord bot token (for Discord channels) with `MESSAGE_CONTENT` intent enabled
-- A YouTube Data API v3 key (for YouTube live chat)
-- Kick chat works anonymously — no credentials required
+- YouTube and Kick work anonymously — no credentials required
 
 ### Install & Run
 
@@ -42,7 +41,7 @@ Output goes to `release/`.
 
 ## Configuration
 
-On first run, open **Settings → Credentials** and enter your platform tokens/keys. Sources are added from the **+** button in the session toolbar. Kick sources only require a channel name.
+Sources are added from the **+** button in the session toolbar. Twitch, YouTube, Kick, and Destiny.gg work without credentials — just enter a channel name or Video ID. Discord requires a bot token; add it in **Settings → Credentials** first.
 
 Credentials are stored locally in the Electron user data directory — never in the project files.
 
@@ -50,7 +49,7 @@ Credentials are stored locally in the Electron user data directory — never in 
 
 - **Electron 28** + **Vite 5** + **TypeScript 5**
 - **React 18** + **Zustand** (state management)
-- **tmi.js** (Twitch), **discord.js** (Discord), native WebSocket (YouTube/Destiny.gg/Kick)
+- **tmi.js** (Twitch), **discord.js** (Discord), InnerTube API (YouTube), native WebSocket (Destiny.gg/Kick)
 
 ## License
 

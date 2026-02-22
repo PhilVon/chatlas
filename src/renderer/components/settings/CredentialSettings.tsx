@@ -23,17 +23,9 @@ export function CredentialSettings({ settings, onChange }: Props) {
 
       <div className="credential-settings__section">
         <div className="credential-settings__section-title">YouTube</div>
-        <div className="settings-field">
-          <label className="settings-label">YouTube Data API v3 Key</label>
-          <input
-            className="credential-settings__input"
-            type="password"
-            autoComplete="off"
-            placeholder="AIza…"
-            value={credentials.youtubeApiKey ?? ''}
-            onChange={e => update({ youtubeApiKey: e.target.value || undefined })}
-          />
-        </div>
+        <p className="credential-settings__note">
+          YouTube uses the internal InnerTube API. No credentials required.
+        </p>
       </div>
 
       <div className="credential-settings__section">

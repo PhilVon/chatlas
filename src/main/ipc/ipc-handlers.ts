@@ -23,7 +23,6 @@ export function registerIpcHandlers(
     const settings = await persistence.getSettings()
     const withCreds: SourceConfig = {
       ...config,
-      apiKey:       settings.credentials.youtubeApiKey   ?? config.apiKey,
       botToken:     settings.credentials.discordBotToken ?? config.botToken,
       dggAuthToken: settings.credentials.dggAuthToken    ?? config.dggAuthToken
     }
