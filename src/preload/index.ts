@@ -42,10 +42,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     return () => ipcRenderer.removeListener('message:answered', listener)
   },
 
-  onChatEvent: (handler: (event: ChatEvent) => void) => {
-    const listener = (_e: Electron.IpcRendererEvent, event: ChatEvent) => handler(event)
-    ipcRenderer.on('chat:event', listener)
-    return () => ipcRenderer.removeListener('chat:event', listener)
+  onChatEvents: (handler: (events: ChatEvent[]) => void) => {
+    const listener = (_e: Electron.IpcRendererEvent, events: ChatEvent[]) => handler(events)
+    ipcRenderer.on('chat:events', listener)
+    return () => ipcRenderer.removeListener('chat:events', listener)
   },
 
   onPlatformStatus: (handler: (payload: PlatformStatusPayload) => void) => {

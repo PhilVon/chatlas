@@ -6,6 +6,11 @@ import { PersistenceManager } from './persistence/persistence-manager'
 import { registerIpcHandlers } from './ipc/ipc-handlers'
 import type { HotkeyMap } from '../types/settings'
 import type { SourceConfig } from '../types/session'
+import type { ChatEvent } from '../types/chat-event'
+
+// Keep renderer active even when window loses focus (critical for streaming overlays)
+app.commandLine.appendSwitch('disable-renderer-backgrounding')
+app.commandLine.appendSwitch('disable-backgrounding-occluded-windows')
 
 let mainWindow: BrowserWindow | null = null
 let overlayWindow: BrowserWindow | null = null
@@ -104,10 +109,21 @@ function unregisterGlobalShortcuts(): void {
 }
 
 function setupBrain() {
+  let pendingEvents: ChatEvent[] = []
+  let flushTimer: ReturnType<typeof setTimeout> | null = null
+
   adapterManager.onEvent((rawEvent) => {
     const classified = brain.process(rawEvent)
-    mainWindow?.webContents.send('chat:event', classified)
-    overlayWindow?.webContents.send('chat:event', classified)
+    pendingEvents.push(classified)
+    if (!flushTimer) {
+      flushTimer = setTimeout(() => {
+        const batch = pendingEvents
+        pendingEvents = []
+        flushTimer = null
+        mainWindow?.webContents.send('chat:events', batch)
+        overlayWindow?.webContents.send('chat:events', batch)
+      }, 32)
+    }
   })
 
   adapterManager.onStatus((payload) => {

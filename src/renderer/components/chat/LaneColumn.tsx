@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import type { ChatEvent, LaneType } from '../../../types/chat-event'
 import type { QuestionGroup } from '../../../types/brain'
 import type { MessageGroup } from '../../utils/groupMessages'
@@ -72,6 +72,14 @@ export function LaneColumn({
   const [expandedClusterIds, setExpandedClusterIds] = useState(new Set<string>())
   const [showNoise, setShowNoise] = useState(false)
 
+  // Debounce messages for the expensive O(n×m) cluster/question computations.
+  // Live messages still feed animatedAlerts and rawGroups for real-time display.
+  const [debouncedMessages, setDebouncedMessages] = useState(messages)
+  useEffect(() => {
+    const id = setTimeout(() => setDebouncedMessages(messages), 120)
+    return () => clearTimeout(id)
+  }, [messages])
+
   const isQuestionsLane = lane === 'questions'
   const isAlertsLane = lane === 'alerts'
   const isGeneralLane = lane === 'general'
@@ -100,7 +108,7 @@ export function LaneColumn({
   // Questions lane data
   const rawQuestionItems = useMemo((): QuestionItem[] => {
     if (!isQuestionsLane) return EMPTY_QUESTION_ITEMS
-    const unanswered = messages.filter(m => !answeredIds.has(m.id))
+    const unanswered = debouncedMessages.filter(m => !answeredIds.has(m.id))
     const groups = groupQuestions(unanswered, questionSimilarity, embeddings)
     const items: QuestionItem[] = []
     for (const group of groups) {
@@ -114,12 +122,12 @@ export function LaneColumn({
       }
     }
     return items
-  }, [isQuestionsLane, messages, answeredIds, questionSimilarity, embeddings])
+  }, [isQuestionsLane, debouncedMessages, answeredIds, questionSimilarity, embeddings])
 
   // Cluster lane data
   const rawClusterItems = useMemo((): ClusterItem[] => {
     if (!isGeneralLane || !topicClustering) return EMPTY_CLUSTER_ITEMS
-    const clusters = clusterMessages(messages, expandedClusterIds, clusterDecayMs, clusterSimilarity, embeddings)
+    const clusters = clusterMessages(debouncedMessages, expandedClusterIds, clusterDecayMs, clusterSimilarity, embeddings)
     const now = Date.now()
     const noisyRatios = new Map(clusters.map(c => {
       const noisyCount = c.messages.filter(e => isNoisyMessage(e)).length
@@ -162,7 +170,7 @@ export function LaneColumn({
       }))
     ]
     return items
-  }, [isGeneralLane, topicClustering, messages, expandedClusterIds, clusterDecayMs, clusterSimilarity, embeddings])
+  }, [isGeneralLane, topicClustering, debouncedMessages, expandedClusterIds, clusterDecayMs, clusterSimilarity, embeddings])
 
   // Message group data (general fallback)
   const rawGroups = useMemo((): MessageGroup[] => {

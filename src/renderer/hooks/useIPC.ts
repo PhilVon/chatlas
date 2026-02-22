@@ -9,8 +9,8 @@ export function useIPC(): void {
   const updateSourceStatus = useSessionStore(s => s.updateSourceStatus)
 
   useEffect(() => {
-    const cleanupChat = window.electronAPI.onChatEvent((event) => {
-      addEvent(event)
+    const cleanupChat = window.electronAPI.onChatEvents((events) => {
+      for (const event of events) addEvent(event)
     })
 
     const cleanupStatus = window.electronAPI.onPlatformStatus((payload) => {

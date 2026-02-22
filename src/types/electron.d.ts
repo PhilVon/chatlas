@@ -32,7 +32,7 @@ export interface ElectronAPI {
 
   // Listeners (return cleanup function)
   onMessageAnswered: (handler: (eventId: string) => void) => () => void
-  onChatEvent: (handler: (event: ChatEvent) => void) => () => void
+  onChatEvents: (handler: (events: ChatEvent[]) => void) => () => void
   onPlatformStatus: (handler: (payload: PlatformStatusPayload) => void) => () => void
   onBurstUpdate: (handler: (summary: BurstSummary) => void) => () => void
 }

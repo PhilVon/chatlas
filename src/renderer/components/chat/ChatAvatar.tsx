@@ -26,6 +26,7 @@ export function ChatAvatar({ avatarUrl, displayName, color, size = 20 }: Props) 
         className="chat-avatar"
         src={avatarUrl}
         alt={displayName}
+        loading="lazy"
         style={style}
         onError={() => { failedAvatarUrls.add(avatarUrl); setImgError(true) }}
       />
